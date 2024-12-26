@@ -32,22 +32,7 @@ public class AdopetConsoleApplication {
                 opcaoEscolhida = Integer.parseInt(textoDigitado);
 
                 if (opcaoEscolhida == 1) {
-                    HttpClient client = HttpClient.newHttpClient();
-                    String uri = "http://localhost:8080/abrigos";
-                    HttpRequest request = HttpRequest.newBuilder()
-                            .uri(URI.create(uri))
-                            .method("GET", HttpRequest.BodyPublishers.noBody())
-                            .build();
-                    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                    String responseBody = response.body();
-                    JsonArray jsonArray = JsonParser.parseString(responseBody).getAsJsonArray();
-                    System.out.println("Abrigos cadastrados:");
-                    for (JsonElement element : jsonArray) {
-                        JsonObject jsonObject = element.getAsJsonObject();
-                        long id = jsonObject.get("id").getAsLong();
-                        String nome = jsonObject.get("nome").getAsString();
-                        System.out.println(id +" - " +nome);
-                    }
+                    cadastrarAbrigo();
                 } else if (opcaoEscolhida == 2) {
                     System.out.println("Digite o nome do abrigo:");
                     String nome = new Scanner(System.in).nextLine();
@@ -172,6 +157,25 @@ public class AdopetConsoleApplication {
             System.out.println("Finalizando o programa...");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void cadastrarAbrigo() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        String uri = "http://localhost:8080/abrigos";
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(uri))
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        String responseBody = response.body();
+        JsonArray jsonArray = JsonParser.parseString(responseBody).getAsJsonArray();
+        System.out.println("Abrigos cadastrados:");
+        for (JsonElement element : jsonArray) {
+            JsonObject jsonObject = element.getAsJsonObject();
+            long id = jsonObject.get("id").getAsLong();
+            String nome = jsonObject.get("nome").getAsString();
+            System.out.println(id +" - " +nome);
         }
     }
 }
