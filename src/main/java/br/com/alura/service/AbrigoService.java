@@ -54,7 +54,7 @@ public class AbrigoService {
             System.out.println("Abrigo cadastrado com sucesso!");
             System.out.println(responseBody);
         } else if (statusCode == 400 || statusCode == 500) {
-            System.out.println("Erro ao cadastrar novo abrigo:");
+            System.out.println("Erro ao cadastrar o abrigo:");
             System.out.println(responseBody);
         }
     }
