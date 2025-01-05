@@ -80,7 +80,7 @@ public class PetService {
             if (statusCode == 200) {
                 System.out.println("Pet cadastrado com sucesso: " + nome);
             } else if (statusCode == 404) {
-                System.out.println("Id ou nome do abrigo nao encontado!");
+                System.out.println("Id ou nome do abrigo não encontado!");
                 break;
             } else if (statusCode == 400 || statusCode == 500) {
                 System.out.println("Erro ao cadastrar o pet: " + nome);
